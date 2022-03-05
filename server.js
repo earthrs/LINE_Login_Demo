@@ -73,7 +73,16 @@ app.get('/cb', function (req, res) {
         console.log('state unmatch!');
     } else {
         // show form
-        res.sendFile(path.join(__dirname,"../line_login/front_end/home.html"))
+        res.send('<html><body>'
+        + '<form method="post" action="/token">'
+        + '<table><tr><th>grant_type</th><td><input type="text" name="grant_type" size="100" value="authorization_code"></td></tr>'
+        + '<tr><th>code</th><td><input type="text" name="code" size="100" value="' + req.query.code + '"></td></tr>'
+        + '<tr><th>redirect_uri</th><td><input type="text" name="redirect_uri" size="100" value="' + redirect_uri + '"></td></tr>'
+        + '<tr><th>client_id</th><td><input type="text" name="client_id" size="100" value="' + client_id + '"></td></tr>'
+        + '<tr><th>client_secret</th><td><input type="text" name="client_secret" size="100" value="' + client_secret + '"></td></tr>'
+        + '</table><button type="submit">Exchange code to token</button><br>'
+        + '</form></body></html>'
+     );
     }
 })
 
